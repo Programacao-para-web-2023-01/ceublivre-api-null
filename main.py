@@ -10,7 +10,7 @@ def get_root(response: Response):
 
 
 def main():
-    run(app, host="localhost", port=8000, reload=True, workers=1)
+    run("main:app", host="localhost", port=8000, reload=True)
 
 if __name__ == "__main__":
     main()

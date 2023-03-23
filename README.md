@@ -38,3 +38,16 @@ seja reembolsado adequadamente.
 **Total: pelo menos 14 pontos**
 
 ---
+
+# Setup
+
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python main.py
+```

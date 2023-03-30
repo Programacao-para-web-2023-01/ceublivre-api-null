@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Response
 from uvicorn import run
+from routers import correios_api
 
 app = FastAPI()
+
+app.include_router(correios_api.router, tags=(["Correios"]), prefix="/v1")
 
 @app.get("/")
 def get_root(response: Response):

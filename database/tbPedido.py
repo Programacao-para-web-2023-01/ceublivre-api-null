@@ -1,7 +1,7 @@
 from deta import Deta
 from os import getenv
 
-table = "test"
+table = "tbPedido"
 
 class TbPedido:
     def __init__(
@@ -18,7 +18,7 @@ class TbPedido:
         prazo_entrega_pedido: int,
         tem_entrega_domiciliar_pedido: bool,
         tem_entrega_sabado: bool,
-        status_pedido: int
+        status_pedido: str
     ) -> None:
         self.id_pedido = id_pedido
         self.rastreamento_pedido = rastreamento_pedido
@@ -67,7 +67,7 @@ class TbPedido:
         prazo_entrega_pedido: int,
         tem_entrega_domiciliar_pedido: bool,
         tem_entrega_sabado: bool,
-        status_pedido: int
+        status_pedido: str
     ) -> None:
         deta = Deta(getenv("DETA_PROJECT_KEY"))
         db = deta.Base(table)
@@ -163,7 +163,7 @@ class TbPedido:
         prazo_entrega_pedido: int | None = None,
         tem_entrega_domiciliar_pedido: bool | None = None,
         tem_entrega_sabado: bool | None = None,
-        status_pedido: int | None = None
+        status_pedido: str | None = None
     ) -> None:
         pedido = cls.get(id_pedido=id_pedido)
 

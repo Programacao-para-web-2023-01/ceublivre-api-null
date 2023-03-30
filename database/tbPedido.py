@@ -1,5 +1,6 @@
 from deta import Deta
 from os import getenv
+import datetime
 
 table = "tbPedido"
 
@@ -18,7 +19,8 @@ class TbPedido:
         prazo_entrega_pedido: int,
         tem_entrega_domiciliar_pedido: bool,
         tem_entrega_sabado: bool,
-        status_pedido: str
+        status_pedido: str,
+        datahora_criacao: datetime
     ) -> None:
         self.id_pedido = id_pedido
         self.rastreamento_pedido = rastreamento_pedido
@@ -33,6 +35,7 @@ class TbPedido:
         self.tem_entrega_domiciliar_pedido = tem_entrega_domiciliar_pedido
         self.tem_entrega_sabado = tem_entrega_sabado
         self.status_pedido = status_pedido
+        self.datahora_criacao = datahora_criacao
 
 
     def dict(self):
@@ -49,7 +52,8 @@ class TbPedido:
             "prazo_entrega_pedido": self.prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": self.tem_entrega_domiciliar_pedido,
             "tem_entrega_sabado": self.tem_entrega_sabado,
-            "status_pedido": self.status_pedido
+            "status_pedido": self.status_pedido,
+            "datahora_criacao": self.datahora_criacao
         }
 
 
@@ -72,6 +76,7 @@ class TbPedido:
         deta = Deta(getenv("DETA_PROJECT_KEY"))
         db = deta.Base(table)
 
+        datahora_criacao = datetime.datetime.now()
         ret = db.put({
             "rastreamento_pedido": rastreamento_pedido,
             "nome_pedido": nome_pedido,
@@ -84,7 +89,8 @@ class TbPedido:
             "prazo_entrega_pedido": prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": tem_entrega_domiciliar_pedido,
             "tem_entrega_sabado": tem_entrega_sabado,
-            "status_pedido": status_pedido
+            "status_pedido": status_pedido,
+            "datahora_criacao": datahora_criacao
         })
 
         if (type(ret) != dict):
@@ -103,7 +109,8 @@ class TbPedido:
             prazo_entrega_pedido,
             tem_entrega_domiciliar_pedido,
             tem_entrega_sabado,
-            status_pedido
+            status_pedido,
+            datahora_criacao
         )
 
         return cl
@@ -142,7 +149,8 @@ class TbPedido:
             ret["prazo_entrega_pedido"],
             ret["tem_entrega_domiciliar_pedido"],
             ret["tem_entrega_sabado"],
-            ret["status_pedido"]
+            ret["status_pedido"],
+            ret["datahora_criacao"]
         )
 
         return cl
@@ -163,7 +171,8 @@ class TbPedido:
         prazo_entrega_pedido: int | None = None,
         tem_entrega_domiciliar_pedido: bool | None = None,
         tem_entrega_sabado: bool | None = None,
-        status_pedido: str | None = None
+        status_pedido: str | None = None,
+        datahora_criacao: datetime.datetime | None = None
     ) -> None:
         pedido = cls.get(id_pedido=id_pedido)
 
@@ -182,7 +191,8 @@ class TbPedido:
             "prazo_entrega_pedido": prazo_entrega_pedido or pedido.prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": tem_entrega_domiciliar_pedido or pedido.tem_entrega_domiciliar_pedido,
             "tem_entrega_sabado": tem_entrega_sabado or pedido.tem_entrega_sabado,
-            "status_pedido": status_pedido or pedido.status_pedido
+            "status_pedido": status_pedido or pedido.status_pedido,
+            "datahora_criacao": datahora_criacao or pedido.datahora_criacao
         })
 
         return cls.get(id_pedido=id_pedido)

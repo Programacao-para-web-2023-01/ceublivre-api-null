@@ -38,7 +38,8 @@ class Correios:
             'valor': self.valor,
             'prazo_entrega': self.prazo_entrega,
             'entrega_domiciliar': self.entrega_domiciliar,
-            'entrega_sabado': self.entrega_sabado
+            'entrega_sabado': self.entrega_sabado,
+            'entrega_expressa': False
         }
 
     def get_express_delivery_info(self):
@@ -49,5 +50,6 @@ class Correios:
             'valor': round(self.valor * 1.5, 2),
             'prazo_entrega': ceil(self.prazo_entrega / 1.5),
             'entrega_domiciliar': self.entrega_domiciliar,
-            'entrega_sabado': True
+            'entrega_sabado': True,
+            'entrega_expressa': True
         }

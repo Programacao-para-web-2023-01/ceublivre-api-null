@@ -20,7 +20,7 @@ class TbPedido:
         tem_entrega_domiciliar_pedido: bool,
         tem_entrega_sabado: bool,
         status_pedido: str,
-        datahora_criacao: datetime
+        datahora_criacao: str
     ) -> None:
         self.id_pedido = id_pedido
         self.rastreamento_pedido = rastreamento_pedido
@@ -76,7 +76,7 @@ class TbPedido:
         deta = Deta(getenv("DETA_PROJECT_KEY"))
         db = deta.Base(table)
 
-        datahora_criacao = datetime.datetime.now()
+        datahora_criacao = str(datetime.datetime.now())
         ret = db.put({
             "rastreamento_pedido": rastreamento_pedido,
             "nome_pedido": nome_pedido,

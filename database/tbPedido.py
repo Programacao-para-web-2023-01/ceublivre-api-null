@@ -1,7 +1,7 @@
 from deta import Deta
 from os import getenv
 
-table = "test"
+table = "tbPedido"
 
 class TbPedido:
     def __init__(

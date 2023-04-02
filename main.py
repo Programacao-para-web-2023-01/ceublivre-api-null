@@ -1,9 +1,19 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, HTTPException
 from uvicorn import run
 from routers import frete, pedidos
 
+# Import middlewares
+from middlewares.error import catch_exceptions_middleware
+from middlewares.auth import AuthMiddleware
+
+
 app = FastAPI()
 
+# Middlewares
+app.add_middleware(AuthMiddleware)
+app.middleware('http')(catch_exceptions_middleware)
+
+# Routes
 app.include_router(frete.router, tags=(["Frete"]), prefix="/v1")
 app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/v1")
 

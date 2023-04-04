@@ -12,12 +12,20 @@ class Pedidos:
         return TbPedido.list()
 
     
-    @router.get("/pedido/{codigo}")
-    def get_pedido_by_code(self, id: str = None, codigo_rastreamento: str = None):
+    @router.get("/pedido_id/{id}")
+    def get_pedido_by_id(self, id: str):
 
-        if not(codigo_rastreamento and id):
+
+        res = TbPedido.get(id_pedido=id)
+        if not(res):
             raise HTTPException(status_code=404, detail="Pedido not found")
-        elif(codigo_rastreamento):
-            return TbPedido.get(rastreamento_pedido=codigo_rastreamento)
         
-        return TbPedido.get(id_pedido=id)
+        return res
+    
+
+    @router.get("/pedido_code/{codigo_rastreamento}")
+    def get_pedido_by_code(self, codigo_rastreamento: str):
+
+        res = TbPedido.get(rastreamento_pedido=codigo_rastreamento)
+        
+        return res

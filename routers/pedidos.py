@@ -17,15 +17,19 @@ class Pedidos:
 
 
         res = TbPedido.get(id_pedido=id)
-        if not(res):
+        if res:
+            return res
+        else:    
             raise HTTPException(status_code=404, detail="Pedido not found")
         
-        return res
     
 
     @router.get("/pedido_code/{codigo_rastreamento}")
     def get_pedido_by_code(self, codigo_rastreamento: str):
 
         res = TbPedido.get(rastreamento_pedido=codigo_rastreamento)
+        if res:
+            return res
+        else:    
+            raise HTTPException(status_code=404, detail="Pedido not found")
         
-        return res

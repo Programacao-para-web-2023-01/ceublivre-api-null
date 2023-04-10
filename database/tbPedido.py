@@ -129,7 +129,10 @@ class TbPedido:
         if (id_pedido != None):
             ret = db.get(id_pedido)
         elif (rastreamento_pedido != None):
-            ret = db.fetch({"rastreamento_pedido": rastreamento_pedido}).items[0]
+            try:
+                ret = db.fetch({"rastreamento_pedido": rastreamento_pedido}).items[0]
+            except:
+                ret = None 
         else:
             return None
 

@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, HTTPException
 from uvicorn import run
-from routers import frete, pedidos
+from routers import frete, pedidos, transportadoras
 
 # Import middlewares
 from middlewares.error import catch_exceptions_middleware
@@ -16,8 +16,9 @@ app.middleware('http')(catch_exceptions_middleware)
 
 
 # Routes
-app.include_router(frete.router, tags=(["Frete"]), prefix="/v1")
-app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/v1")
+app.include_router(frete.router, tags=(["Frete"]), prefix="/frete")
+app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/pedidos")
+app.include_router(transportadoras.router, tags=(["Transportadoras"]), prefix="/transportadora")
 
 
 # show Authorization header in docs

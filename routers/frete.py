@@ -7,7 +7,7 @@ router = APIRouter()
 @cbv(router)
 class CorreiosApi:
 
-    @router.get("/frete")
+    @router.get("/")
     def get_frete(self, peso: float, cep_origem: str, cep_destino:str, valor_declarado:str, entrega_expressa: bool = False):
 
         res = Correios(cep_origem, cep_destino, peso, valor_declarado)

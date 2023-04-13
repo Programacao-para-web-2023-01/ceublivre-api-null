@@ -17,7 +17,7 @@ app.middleware('http')(catch_exceptions_middleware)
 
 # Routes
 app.include_router(frete.router, tags=(["Frete"]), prefix="/frete")
-app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/pedido")
+app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/pedidos")
 app.include_router(transportadoras.router, tags=(["Transportadoras"]), prefix="/transportadora")
 
 

@@ -7,12 +7,12 @@ router = APIRouter()
 @cbv(router)
 class Pedidos:
 
-    @router.get("/pedidos")
+    @router.get("/")
     def get_pedidos(self):
         return TbPedido.list()
 
     
-    @router.get("/pedido_id/{id}")
+    @router.get("/id/{id}")
     def get_pedido_by_id(self, id: str):
 
 
@@ -24,7 +24,7 @@ class Pedidos:
         
     
 
-    @router.get("/pedido_code/{codigo_rastreamento}")
+    @router.get("/code/{codigo_rastreamento}")
     def get_pedido_by_code(self, codigo_rastreamento: str):
 
         res = TbPedido.get(rastreamento_pedido=codigo_rastreamento)

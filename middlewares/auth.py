@@ -12,7 +12,6 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
         if auth.error:
             raise HTTPException(status_code=auth.code or 401, detail=auth.detail or "Invalid token")
-        auth_header = request.headers.get("Authorization")
         # if request.url.path not in ("/"):
         #     auth_header = request.headers.get("Authorization")
         #     if not auth_header:

@@ -9,13 +9,31 @@ from middlewares.auth import AuthMiddleware
 
 app = FastAPI()
 
+
 # Middlewares
 app.add_middleware(AuthMiddleware)
 app.middleware('http')(catch_exceptions_middleware)
 
+
 # Routes
 app.include_router(frete.router, tags=(["Frete"]), prefix="/v1")
 app.include_router(pedidos.router, tags=(["Pedidos"]), prefix="/v1")
+
+
+# show Authorization header in docs
+app.openapi_schema = app.openapi()
+app.openapi_schema["components"]["securitySchemes"] = {
+    "apiKeyAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+    }
+}
+app.openapi_schema["security"] = [
+    {
+        "apiKeyAuth": ["*"]
+    }
+]
 
 
 @app.get("/")

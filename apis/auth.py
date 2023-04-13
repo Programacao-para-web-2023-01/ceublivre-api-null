@@ -11,5 +11,6 @@ class Auth:
     @classmethod
     def validate(cls, header: str):
         # TODO request to auth server
-        
-        return cls(False)
+        if header in ["123", "321", "admin", "root"]:
+            return cls(False)
+        return cls(True, 401, "Invalid token")

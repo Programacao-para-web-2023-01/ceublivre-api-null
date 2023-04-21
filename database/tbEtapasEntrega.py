@@ -1,5 +1,9 @@
 from deta import Deta
 from os import getenv
+from datetime import datetime, timedelta
+
+from database.tbPedido import TbPedido
+from apis_fake.localizacao import Localizacao
 
 table = "tbEtapasEntrega"
 
@@ -30,20 +34,29 @@ class TbEtapasEntrega:
     def create(
         cls,
         id_pedido: str,
-        rastreamento_pedido: str,
-        etapas_entrega: list
+        rastreamento_pedido: str
+        # etapas_entrega: list
     ) -> None:
-        if (
-            len(etapas_entrega) == 0 or
-            any(
-                type(x) != dict or
-                "datahora" not in x or
-                "local" not in x or
-                "status" not in x
-                for x in etapas_entrega
-            )
-        ):
-            raise Exception("Invalid etapas_entrega")
+        # if (
+        #     len(etapas_entrega) == 0 or
+        #     any(
+        #         type(x) != dict or
+        #         "datahora" not in x or
+        #         "local" not in x or
+        #         "status" not in x
+        #         for x in etapas_entrega
+        #     )
+        # ):
+        #     raise Exception("Invalid etapas_entrega")
+
+        dias = TbPedido.get(id_pedido = id_pedido).prazo_entrega_pedido
+        local = Localizacao.gerar()
+        etapas_entrega = [
+            {
+                "datahora": str(datetime.now() + timedelta(days=i)),
+                "local": f"{local.lat}, {local.lon}"
+            } for i in range(dias)
+        ]
 
         deta = Deta(getenv("DETA_PROJECT_KEY"))
         db = deta.Base(table)

@@ -7,14 +7,15 @@ router = APIRouter()
 @cbv(router)
 class Transportadoras:
 
-    @router.get("/entregas_por_tipo")
-    def get_pedidos(self, entrega_expressa: bool = False):
-        return TbPedido.search({'expresso_pedido': entrega_expressa})
+    @router.get("/entregas/tipo/{tipo}")
+    def get_pedidos(self, tipo: int):
+        if tipo not in [1, 2]:
+            raise HTTPException(status_code=404, detail="Shipping type not found.")
+        return TbPedido.search({'expresso_pedido': tipo == 2})
 
     @router.get("/status_pedido/{id}")
     def get_status_pedido_by_id(self, id: str):
         result = TbPedido.get(id_pedido=id)
         if result:
-            return result.status_pedido
-        else:    
-            raise HTTPException(status_code=404, detail="Pedido not found")
+            return {"status_pedido": result.status_pedido}
+        raise HTTPException(status_code=404, detail="Pedido not found")

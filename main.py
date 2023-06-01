@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, HTTPException
 from uvicorn import run
 from routers import frete, pedidos, transportadoras
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import middlewares
 from middlewares.error import catch_exceptions_middleware
@@ -9,11 +10,24 @@ from middlewares.auth import AuthMiddleware
 
 app = FastAPI()
 
-
 # Middlewares
 app.add_middleware(AuthMiddleware)
 app.middleware('http')(catch_exceptions_middleware)
 
+origins = [
+    "https://localhost:3000",
+    "https://localhost",
+    "http://localhost:3000",
+    "http://localhost"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Routes
 app.include_router(frete.router, tags=(["Frete"]), prefix="/frete")

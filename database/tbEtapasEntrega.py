@@ -1,7 +1,6 @@
 from deta import Deta
 from os import getenv
 from datetime import datetime, timedelta
-
 from database.tbPedido import TbPedido
 from apis_fake.localizacao import Localizacao
 

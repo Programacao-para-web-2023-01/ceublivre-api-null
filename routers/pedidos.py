@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from fastapi_utils.cbv import cbv
-from schemas.post_pedido import CreatePedido
+from schemas.pedidos import CreatePedido, UpdatePedido
 from database.tbPedido import TbPedido
 from database.tbEtapasEntrega import TbEtapasEntrega
 from apis.correios import Correios
+import datetime
 
 router = APIRouter()
 
@@ -70,6 +71,31 @@ class Pedidos:
         else:    
             raise HTTPException(status_code=404, detail="Pedido not found")
         
+    @router.put("/{id}")
+    def update_pedido_by_id(self, pedido:UpdatePedido, id: str):
+
+        pedidoInfo = TbPedido.get(id_pedido=id)
+
+        res = TbPedido.update(id_pedido=id,
+            rastreamento_pedido=pedido.rastreamento_pedido,
+            nome_pedido=pedido.nome_pedido,
+            cep_origem_pedido=pedido.cep_origem_pedido,
+            cep_destino_pedido=pedido.cep_destino_pedido,
+            peso_pedido=pedido.peso_pedido,
+            valor_declarado_pedido=pedido.valor_declarado_pedido,
+            expresso_pedido=pedido.expresso_pedido,
+            valor_envio_pedido=pedido.valor_envio_pedido,
+            prazo_entrega_pedido=pedido.prazo_entrega_pedido,
+            tem_entrega_domiciliar_pedido=pedido.tem_entrega_domiciliar_pedido,
+            tem_entrega_sabado=pedido.tem_entrega_sabado,
+            status_pedido=pedido.status_pedido,
+            datahora_criacao=pedidoInfo.datahora_criacao
+            )
+        if res:
+            return res
+        else:    
+            raise HTTPException(status_code=404, detail="Pedido not found")
+
     @router.delete("/{id}")
     def delete_pedido_by_id(self, id: str):
         ped = TbPedido.get(id_pedido=id)

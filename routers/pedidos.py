@@ -4,7 +4,8 @@ from schemas.pedidos import CreatePedido, UpdatePedido
 from database.tbPedido import TbPedido
 from database.tbEtapasEntrega import TbEtapasEntrega
 from apis.correios import Correios
-import datetime
+import random
+import string
 
 router = APIRouter()
 
@@ -35,6 +36,7 @@ class Pedidos:
             peso=pedido.peso_pedido,
             valor_declarado=pedido.valor_declarado_pedido
         )
+        characters = string.ascii_letters + string.digits
         
         if pedido.expresso_pedido:
             correios = correios.get_express_delivery_info()
@@ -43,9 +45,10 @@ class Pedidos:
 
         if correios.get("error") != None:
             raise HTTPException(503, correios.get("msg_error"))
+        
 
         res = TbPedido.create(
-            rastreamento_pedido = "a definir",
+            rastreamento_pedido = ''.join(random.choice(characters) for i in range(8)),
             nome_pedido = pedido.nome_pedido,
             cep_origem_pedido = pedido.cep_origem_pedido,
             cep_destino_pedido = pedido.cep_destino_pedido,

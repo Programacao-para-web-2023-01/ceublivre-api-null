@@ -2,6 +2,9 @@ from fastapi import FastAPI, Response, HTTPException
 from uvicorn import run
 from routers import frete, pedidos, transportadoras
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Import middlewares
 from middlewares.error import catch_exceptions_middleware

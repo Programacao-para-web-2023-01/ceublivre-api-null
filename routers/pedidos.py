@@ -80,20 +80,34 @@ class Pedidos:
 
         pedidoInfo = TbPedido.get(id_pedido=id)
 
+        correios = Correios(
+            cep_origem=pedido.cep_origem_pedido, 
+            cep_destino=pedido.cep_destino_pedido, 
+            peso=pedido.peso_pedido,
+            valor_declarado=pedido.valor_declarado_pedido
+        )
+        if pedido.expresso_pedido:
+            correios = correios.get_express_delivery_info()
+        else:
+            correios = correios.response()
+
+        if correios.get("error") != None:
+            raise HTTPException(503, correios.get("msg_error"))
+
         res = TbPedido.update(id_pedido=id,
-            rastreamento_pedido=pedido.rastreamento_pedido,
-            nome_pedido=pedido.nome_pedido,
-            cep_origem_pedido=pedido.cep_origem_pedido,
-            cep_destino_pedido=pedido.cep_destino_pedido,
-            peso_pedido=pedido.peso_pedido,
-            valor_declarado_pedido=pedido.valor_declarado_pedido,
-            expresso_pedido=pedido.expresso_pedido,
-            valor_envio_pedido=pedido.valor_envio_pedido,
-            prazo_entrega_pedido=pedido.prazo_entrega_pedido,
-            tem_entrega_domiciliar_pedido=pedido.tem_entrega_domiciliar_pedido,
-            tem_entrega_sabado=pedido.tem_entrega_sabado,
-            status_pedido=pedido.status_pedido,
-            datahora_criacao=pedidoInfo.datahora_criacao
+            nome_pedido = pedido.nome_pedido,
+            cep_origem_pedido = pedido.cep_origem_pedido,
+            cep_destino_pedido = pedido.cep_destino_pedido,
+            peso_pedido = pedido.peso_pedido,
+            valor_declarado_pedido = pedido.valor_declarado_pedido,
+            status_pedido = pedido.status_pedido,
+            rastreamento_pedido = pedidoInfo.rastreamento_pedido,
+            datahora_criacao = pedidoInfo.datahora_criacao,
+            expresso_pedido = pedido.expresso_pedido,
+            valor_envio_pedido = correios.get("valor"),
+            prazo_entrega_pedido = correios.get("prazo_entrega"),
+            tem_entrega_domiciliar_pedido = correios.get("entrega_domiciliar"),
+            tem_entrega_sabado = correios.get("entrega_sabado")
             )
         if res:
             return res

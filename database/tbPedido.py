@@ -15,6 +15,7 @@ class TbPedido:
         peso_pedido: float,
         valor_declarado_pedido: float,
         expresso_pedido: bool,
+        id_transportadora: str,
         valor_envio_pedido: float,
         prazo_entrega_pedido: int,
         tem_entrega_domiciliar_pedido: bool,
@@ -30,6 +31,7 @@ class TbPedido:
         self.peso_pedido = peso_pedido
         self.valor_declarado_pedido = valor_declarado_pedido
         self.expresso_pedido = expresso_pedido
+        self.id_transportadora = id_transportadora
         self.valor_envio_pedido = valor_envio_pedido
         self.prazo_entrega_pedido = prazo_entrega_pedido
         self.tem_entrega_domiciliar_pedido = tem_entrega_domiciliar_pedido
@@ -48,6 +50,7 @@ class TbPedido:
             "peso_pedido": self.peso_pedido,
             "valor_declarado_pedido": self.valor_declarado_pedido,
             "expresso_pedido": self.expresso_pedido,
+            "id_transportadora": self.id_transportadora,
             "valor_envio_pedido": self.valor_envio_pedido,
             "prazo_entrega_pedido": self.prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": self.tem_entrega_domiciliar_pedido,
@@ -67,6 +70,7 @@ class TbPedido:
         peso_pedido: float,
         valor_declarado_pedido: float,
         expresso_pedido: bool,
+        id_transportadora: str,
         valor_envio_pedido: float,
         prazo_entrega_pedido: int,
         tem_entrega_domiciliar_pedido: bool,
@@ -85,6 +89,7 @@ class TbPedido:
             "peso_pedido": peso_pedido,
             "valor_declarado_pedido": valor_declarado_pedido,
             "expresso_pedido": expresso_pedido,
+            "id_transportadora": id_transportadora,
             "valor_envio_pedido": valor_envio_pedido,
             "prazo_entrega_pedido": prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": tem_entrega_domiciliar_pedido,
@@ -105,6 +110,7 @@ class TbPedido:
             peso_pedido,
             valor_declarado_pedido,
             expresso_pedido,
+            id_transportadora,
             valor_envio_pedido,
             prazo_entrega_pedido,
             tem_entrega_domiciliar_pedido,
@@ -148,6 +154,7 @@ class TbPedido:
             ret["peso_pedido"],
             ret["valor_declarado_pedido"],
             ret["expresso_pedido"],
+            ret["id_transportadora"],
             ret["valor_envio_pedido"],
             ret["prazo_entrega_pedido"],
             ret["tem_entrega_domiciliar_pedido"],
@@ -170,6 +177,7 @@ class TbPedido:
         peso_pedido: float | None = None,
         valor_declarado_pedido: float | None = None,
         expresso_pedido: bool | None = None,
+        id_transportadora: str | None = None,
         valor_envio_pedido: float | None = None,
         prazo_entrega_pedido: int | None = None,
         tem_entrega_domiciliar_pedido: bool | None = None,
@@ -190,6 +198,7 @@ class TbPedido:
             "peso_pedido": peso_pedido or pedido.peso_pedido,
             "valor_declarado_pedido": valor_declarado_pedido or pedido.valor_declarado_pedido,
             "expresso_pedido": expresso_pedido or pedido.expresso_pedido,
+            "id_transportadora": id_transportadora or pedido.id_transportadora,
             "valor_envio_pedido": valor_envio_pedido or pedido.valor_envio_pedido,
             "prazo_entrega_pedido": prazo_entrega_pedido or pedido.prazo_entrega_pedido,
             "tem_entrega_domiciliar_pedido": tem_entrega_domiciliar_pedido or pedido.tem_entrega_domiciliar_pedido,

@@ -7,3 +7,4 @@ class CreatePedido(BaseModel):
     peso_pedido: float
     valor_declarado_pedido: float
     expresso_pedido: bool
+    id_transportadora: str

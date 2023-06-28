@@ -34,7 +34,7 @@ class Pedidos:
             cep_destino=pedido.cep_destino_pedido, 
             peso=pedido.peso_pedido,
             valor_declarado=pedido.valor_declarado_pedido,
-            id_transportadora=pedido.id_transportadora
+            #id_transportadora=pedido.#id_transportadora
         )
         characters = string.ascii_letters + string.digits
         
@@ -55,7 +55,7 @@ class Pedidos:
             peso_pedido = pedido.peso_pedido,
             valor_declarado_pedido = pedido.valor_declarado_pedido,
             expresso_pedido = pedido.expresso_pedido,
-            id_transportadora = pedido.id_transportadora,
+            #id_transportadora = pedido.#id_transportadora,
             valor_envio_pedido = correios.get("valor"),
             prazo_entrega_pedido = correios.get("prazo_entrega"),
             tem_entrega_domiciliar_pedido = correios.get("entrega_domiciliar"),

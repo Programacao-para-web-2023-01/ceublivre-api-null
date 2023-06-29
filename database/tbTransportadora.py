@@ -1,6 +1,5 @@
 from deta import Deta
 from os import getenv
-from database.tbTransportadora import TbTransportadora
 
 table = "tbTransportadora"
 
@@ -27,7 +26,6 @@ class TbTransportadora:
     @classmethod
     def create(
         cls,
-        id_transportadora: str,
         nome_transportadora: str,
         tele_transportadora: str
     ) -> None:
@@ -36,7 +34,6 @@ class TbTransportadora:
         db = deta.Base(table)
 
         ret = db.put({
-            "id_transportadora": id_transportadora,
             "nome_transportadora": nome_transportadora,
             "tele_transportadora": tele_transportadora
         })
@@ -45,8 +42,7 @@ class TbTransportadora:
             raise Exception("Error in create")
 
         cl = cls(
-            ret["key"], # id_etapa_entrega
-            id_transportadora,
+            ret["key"],
             nome_transportadora,
             tele_transportadora
         )
@@ -79,7 +75,6 @@ class TbTransportadora:
 
         cl = cls(
             ret["key"],
-            ret["id_transportadora"],
             ret["nome_transportadora"],
             ret["tele_transportadora"]
         )
